@@ -19,9 +19,9 @@ RUN apk add --purge --no-cache --update \
 
 RUN pip install --no-input --compile --exists-action=a --disable-pip-version-check --upgrade \
     docutils \
-    && ln -s /usr/bin/rst2man.py /bin/rst2man
+    && ln -s /usr/bin/rst2man.py /bin/rst2man \
+    && rst2man --version
 
-RUN rst2man --version
 RUN git clone https://github.com/pgbouncer/pgbouncer.git \
     && cd ./pgbouncer/ \
     && git submodule init \
