@@ -1,6 +1,7 @@
+# Build this image: docker build -f .\Dockerfile -t illagrenan/pgbouncer .
 FROM alpine:latest AS build_stage
 
-MAINTAINER brainsam@yandex.ru
+ARG PGBOUNCER_VERSION=pgbouncer_1_9_0
 
 WORKDIR /
 RUN apk add --purge --no-cache --update \
@@ -15,26 +16,36 @@ RUN apk add --purge --no-cache --update \
       libevent-dev \
       openssl-dev \
       c-ares-dev
-RUN pip install docutils
-RUN git clone https://github.com/pgbouncer/pgbouncer.git src
 
-WORKDIR /bin
-RUN ln -s ../usr/bin/rst2man.py rst2man
+RUN pip install --no-input --compile --disable-pip-version-check docutils \
+    && ln -s /usr/bin/rst2man.py /bin/rst2man
 
-WORKDIR /src
-RUN mkdir /pgbouncer
-RUN git submodule init
-RUN git submodule update
+RUN rst2man --version
+RUN git clone https://github.com/pgbouncer/pgbouncer.git \
+    && cd ./pgbouncer/ \
+    && git submodule init \
+    && git submodule update \
+    && git fetch \
+    && git fetch --tags \
+    && git checkout ${PGBOUNCER_VERSION}
+WORKDIR /pgbouncer
+RUN mkdir /pgbouncer-bin
+
 RUN ./autogen.sh
-RUN	./configure --prefix=/pgbouncer --with-libevent=/usr/lib
+RUN	./configure --prefix=/pgbouncer-bin --with-libevent=/usr/lib
 RUN make
 RUN make install
-RUN ls -R /pgbouncer
+RUN ls -R /pgbouncer-bin
 
 FROM alpine:latest
-RUN apk --update add libevent openssl c-ares
+
+RUN apk add --purge --no-cache --update \
+      libevent \
+      openssl \
+      c-ares
+
 WORKDIR /
-COPY --from=build_stage /pgbouncer /pgbouncer
+COPY --from=build_stage /pgbouncer-bin /pgbouncer
 ADD entrypoint.sh ./
 
 ENTRYPOINT ["./entrypoint.sh"]
