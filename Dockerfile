@@ -30,6 +30,7 @@ RUN git clone https://github.com/pgbouncer/pgbouncer.git \
     && git fetch \
     && git fetch --tags \
     && git checkout ${PGBOUNCER_VERSION}
+
 WORKDIR /pgbouncer
 RUN mkdir /pgbouncer-bin
 
@@ -37,7 +38,7 @@ RUN ./autogen.sh
 RUN	./configure --prefix=/pgbouncer-bin --with-libevent=/usr/lib
 RUN make
 RUN make install
-RUN ls -R /pgbouncer-bin
+RUN ls -alhR /pgbouncer-bin
 
 FROM alpine:latest
 
