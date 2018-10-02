@@ -1,3 +1,6 @@
+[![Docker Stars](https://img.shields.io/docker/automated/illagrenan/pgbouncer.svg?style=flat-square)](https://hub.docker.com/r/illagrenan/pgbouncer/)
+[![Docker Stars](https://img.shields.io/docker/build/illagrenan/pgbouncer.svg?style=flat-square)](https://hub.docker.com/r/illagrenan/pgbouncer/)
+
 ## Synopsis
 
 **pgbouncer** is a popular, small connection pooler for Postgresql. This is yet another docker image with pgbouncer, based on alpine.
