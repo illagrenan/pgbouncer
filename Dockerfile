@@ -1,6 +1,7 @@
 # Build this image: docker build -f .\Dockerfile -t illagrenan/pgbouncer .
 FROM alpine:latest AS build_stage
 
+ARG PYTHONUNBUFFERED=1
 ARG PGBOUNCER_VERSION=pgbouncer_1_9_0
 
 WORKDIR /
