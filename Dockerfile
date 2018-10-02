@@ -3,7 +3,18 @@ FROM alpine:latest AS build_stage
 MAINTAINER brainsam@yandex.ru
 
 WORKDIR /
-RUN apk --update add git python py-pip build-base automake libtool m4 autoconf libevent-dev openssl-dev c-ares-dev
+RUN apk add --purge --no-cache --update \
+      git \
+      python \
+      py-pip \
+      build-base \
+      automake \
+      libtool \
+      m4 \
+      autoconf \
+      libevent-dev \
+      openssl-dev \
+      c-ares-dev
 RUN pip install docutils
 RUN git clone https://github.com/pgbouncer/pgbouncer.git src
 
