@@ -35,7 +35,7 @@ WORKDIR /pgbouncer
 RUN mkdir /pgbouncer-bin
 
 RUN ./autogen.sh
-RUN	./configure --prefix=/pgbouncer-bin --with-pam --with-libevent=/usr/lib
+RUN ./configure --prefix=/pgbouncer-bin --with-pam --with-libevent=/usr/lib
 RUN make
 RUN make install
 RUN ls -alhR /pgbouncer-bin
