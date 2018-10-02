@@ -17,7 +17,8 @@ RUN apk add --purge --no-cache --update \
       openssl-dev \
       c-ares-dev
 
-RUN pip install --no-input --compile --disable-pip-version-check docutils \
+RUN pip install --no-input --compile --disable-pip-version-check \
+    docutils \
     && ln -s /usr/bin/rst2man.py /bin/rst2man
 
 RUN rst2man --version
