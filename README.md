@@ -10,11 +10,12 @@
 
 ```bash
 docker run -d \ 
-       --name=pgbouncer \
-       -e DB_HOST=postgresql.example.com \
-       -e DB_USER=admin \
-       -e DB_PASSWORD=mypassword \
-       illagrenan/pgbouncer:latest
+  --name=pgbouncer \
+  -e DB_HOST=host.docker.internal \
+  -e DB_USER=foo \
+  -e DB_PASSWORD=*** \
+  -e DB_PORT=5432 \
+  illagrenan/pgbouncer:latest
 ```
 
 ## Links ##
