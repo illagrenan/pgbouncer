@@ -23,13 +23,10 @@ RUN pip install --isolated --no-input --compile --exists-action=a --disable-pip-
     && ln -s /usr/bin/rst2man.py /bin/rst2man \
     && rst2man --version
 
-RUN git clone https://github.com/pgbouncer/pgbouncer.git \
+RUN git clone --branch ${PGBOUNCER_VERSION} --depth 1 https://github.com/pgbouncer/pgbouncer.git \
     && cd ./pgbouncer/ \
     && git submodule init \
-    && git submodule update \
-    && git fetch \
-    && git fetch --tags \
-    && git checkout ${PGBOUNCER_VERSION}
+    && git submodule update
 
 WORKDIR /pgbouncer
 RUN mkdir /pgbouncer-bin
