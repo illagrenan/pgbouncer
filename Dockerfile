@@ -3,6 +3,10 @@ FROM alpine:latest AS build_stage
 
 ARG PYTHONUNBUFFERED=1
 ARG PGBOUNCER_VERSION=pgbouncer_1_12_0
+ARG PANDOC_VERSION=2.7.3
+
+RUN wget https://github.com/jgm/pandoc/releases/download/${PANDOC_VERSION}/pandoc-${PANDOC_VERSION}-linux.tar.gz
+RUN tar xvzf pandoc-${PANDOC_VERSION}-linux.tar.gz --strip-components 1 -C /usr/local
 
 WORKDIR /
 RUN apk add --purge --no-cache --update \
@@ -32,7 +36,7 @@ WORKDIR /pgbouncer
 RUN mkdir /pgbouncer-bin
 
 RUN ./autogen.sh
-RUN ./configure --prefix=/pgbouncer-bin --with-pam --with-libevent=/usr/lib
+RUN ./configure --prefix=/pgbouncer-bin --with-pam
 RUN make
 RUN make install
 RUN ls -alhR /pgbouncer-bin
