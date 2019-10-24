@@ -2,7 +2,7 @@
 FROM alpine:latest AS build_stage
 
 ARG PYTHONUNBUFFERED=1
-ARG PGBOUNCER_VERSION=pgbouncer_1_9_0
+ARG PGBOUNCER_VERSION=pgbouncer_1_12_0
 
 WORKDIR /
 RUN apk add --purge --no-cache --update \
