@@ -6,7 +6,7 @@ ARG PGBOUNCER_VERSION=pgbouncer_1_14_0
 ARG PANDOC_VERSION=2.10
 
 RUN wget https://github.com/jgm/pandoc/releases/download/${PANDOC_VERSION}/pandoc-${PANDOC_VERSION}-linux-amd64.tar.gz
-RUN tar xvzf pandoc-${PANDOC_VERSION}-linux.tar.gz --strip-components 1 -C /usr/local
+RUN tar xvzf pandoc-${PANDOC_VERSION}-linux-amd64.tar.gz --strip-components 1 -C /usr/local
 
 WORKDIR /
 RUN apk add --purge --no-cache --update \
