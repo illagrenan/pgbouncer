@@ -11,7 +11,7 @@ RUN tar xvzf pandoc-${PANDOC_VERSION}-linux-amd64.tar.gz --strip-components 1 -C
 WORKDIR /
 RUN apk add --purge --no-cache --update \
       git \
-      python \
+      python3 \
       py-pip \
       build-base \
       automake \
